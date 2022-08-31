@@ -34,7 +34,8 @@ import java.util.List;
 @SupportedAnnotationTypes({
         Annotations.FIESTA, Annotations.DANGEROUS, Annotations.WARNING,
         Annotations.EXPERIMENTAL,
-        Annotations.FIXME, Annotations.FIXMES
+        Annotations.FIXME, Annotations.FIXMES,
+        Annotations.TODO, Annotations.TODOS,
 })
 public class FiestaMainJavacProcessor extends BaseJavacProcessor {
 
@@ -48,6 +49,8 @@ public class FiestaMainJavacProcessor extends BaseJavacProcessor {
         processors.add(ExperimentalProcessor.getInstance());
         processors.add(FixmeProcessor.getInstance());
         processors.add(FixmesProcessor.getInstance());
+        processors.add(TodoProcessor.getInstance());
+        processors.add(TodosProcessor.getInstance());
         return processors;
     }
 }
