@@ -16,41 +16,35 @@
 
 package space.lingu.fiesta.compile.processor;
 
-import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
-import space.lingu.fiesta.Fiesta;
-import space.lingu.fiesta.compile.Context;
-import space.lingu.fiesta.compile.Processor;
-import space.lingu.fiesta.compile.TreeElement;
+import space.lingu.Todo;
+import space.lingu.Todos;
 
 /**
- * {@link space.lingu.fiesta.Fiesta}
- *
  * @author RollW
  */
-public class FiestaProcessor implements Processor<Fiesta> {
-    private FiestaProcessor() {
-    }
-
-    @Override
-    public void process(Context context, TreeElement element, InfoPolicy policy) {
-        if (policy == InfoPolicy.CALLER) {
-            return;
-        }
-        context.getLog().note("Hello from the Fiesta!", element);
+public class TodosProcessor extends RepeatableAnnotationProcessor<Todos, Todo> {
+    public TodosProcessor(MessageAnnotationProcessor<Todo> messageAnnotationProcessor) {
+        super(messageAnnotationProcessor);
     }
 
     @NonNull
     @Override
-    public Class<Fiesta> provideClass() {
-        return Fiesta.class;
+    public Class<Todos> provideClass() {
+        return Todos.class;
     }
 
-    public static FiestaProcessor getInstance() {
+    @NonNull
+    @Override
+    protected Todo[] extractsMultipleAnnotations(Todos annotation) {
+        return annotation.value();
+    }
+
+    public static TodosProcessor getInstance() {
       return SingletonHolder.INSTANCE;
     }
 
     private static final class SingletonHolder {
-        static final FiestaProcessor INSTANCE = new FiestaProcessor();
+        static final TodosProcessor INSTANCE = new TodosProcessor(TodoProcessor.getInstance());
     }
 }

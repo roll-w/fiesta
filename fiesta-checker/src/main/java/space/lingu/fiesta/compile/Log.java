@@ -71,4 +71,8 @@ public final class Log {
     public void warn(CharSequence s, TreeElement element) {
         log(Diagnostic.Kind.WARNING, s, element);
     }
+
+    public void mandatoryWarn(CharSequence s, TreeElement element) {
+        log(Diagnostic.Kind.MANDATORY_WARNING, s, element);
+    }
 }

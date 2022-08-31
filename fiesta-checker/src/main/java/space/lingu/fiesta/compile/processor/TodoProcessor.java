@@ -16,55 +16,50 @@
 
 package space.lingu.fiesta.compile.processor;
 
-import space.lingu.Dangerous;
 import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 import space.lingu.Nullable;
+import space.lingu.Todo;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
-
 /**
- * {@link Dangerous}
- *
  * @author RollW
  */
-public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> {
-
-    private DangerousProcessor() {
+public class TodoProcessor extends MessageAnnotationProcessor<Todo> {
+    public TodoProcessor() {
+        super();
     }
 
     @Override
+    protected void onCall(@Nullable Todo annotation, Context context,
+                          TreeElement element, InfoPolicy policy) {
+        if (annotation == null) {
+            return;
+        }
+        if (policy == InfoPolicy.CALLER) {
+            return;
+        }
+        String since = annotation.since();
+        StringBuilder builder = new StringBuilder("TODO: ");
+        builder.append(annotation.todo());
+        if (!since.isEmpty()) {
+            builder.append("\nSince: ").append(since);
+        }
+        context.getLog().note(builder.toString(), element);
+    }
+
     @NonNull
-    public Class<Dangerous> provideClass() {
-        return Dangerous.class;
-    }
-
     @Override
-    protected void onCall(@Nullable Dangerous dangerous,
-                          Context context, TreeElement element, InfoPolicy policy) {
-        if (dangerous == null) {
-            return;
-        }
-        InfoPolicy annotationPolicy = dangerous.policy();
-        if (annotationPolicy == InfoPolicy.NONE) {
-            return;
-        }
-        if (annotationPolicy == InfoPolicy.ALL || dangerous.policy() == policy) {
-            if (dangerous.message().isEmpty()) {
-                context.getLog().warn("Dangerous! ", element);
-                return;
-            }
-            context.getLog()
-                    .warn("Dangerous: " + dangerous.message(), element);
-        }
+    public Class<Todo> provideClass() {
+        return Todo.class;
     }
 
-    public static DangerousProcessor getInstance() {
+    public static TodoProcessor getInstance() {
       return SingletonHolder.INSTANCE;
     }
 
     private static final class SingletonHolder {
-        static final DangerousProcessor INSTANCE = new DangerousProcessor();
+        static final TodoProcessor INSTANCE = new TodoProcessor();
     }
 }

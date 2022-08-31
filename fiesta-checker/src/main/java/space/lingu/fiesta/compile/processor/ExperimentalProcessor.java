@@ -16,55 +16,49 @@
 
 package space.lingu.fiesta.compile.processor;
 
-import space.lingu.Dangerous;
+import space.lingu.Experimental;
 import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
-import space.lingu.Nullable;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
-
 /**
- * {@link Dangerous}
+ * {@link Experimental}
  *
  * @author RollW
  */
-public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> {
+public class ExperimentalProcessor extends MessageAnnotationProcessor<Experimental> {
+    public ExperimentalProcessor() {
+        super();
+    }
 
-    private DangerousProcessor() {
+    @Override
+    protected void onCall(Experimental annotation, Context context,
+                          TreeElement element, InfoPolicy policy) {
+        if (annotation == null) {
+            return;
+        }
+        InfoPolicy annotationPolicy = annotation.policy();
+        if (annotationPolicy == InfoPolicy.NONE) {
+            return;
+        }
+        if (annotationPolicy == InfoPolicy.ALL || annotation.policy() == policy) {
+            context.getLog()
+                    .warn("WARN: " + annotation.info(), element);
+        }
     }
 
     @Override
     @NonNull
-    public Class<Dangerous> provideClass() {
-        return Dangerous.class;
+    public Class<Experimental> provideClass() {
+        return Experimental.class;
     }
 
-    @Override
-    protected void onCall(@Nullable Dangerous dangerous,
-                          Context context, TreeElement element, InfoPolicy policy) {
-        if (dangerous == null) {
-            return;
-        }
-        InfoPolicy annotationPolicy = dangerous.policy();
-        if (annotationPolicy == InfoPolicy.NONE) {
-            return;
-        }
-        if (annotationPolicy == InfoPolicy.ALL || dangerous.policy() == policy) {
-            if (dangerous.message().isEmpty()) {
-                context.getLog().warn("Dangerous! ", element);
-                return;
-            }
-            context.getLog()
-                    .warn("Dangerous: " + dangerous.message(), element);
-        }
-    }
-
-    public static DangerousProcessor getInstance() {
+    public static ExperimentalProcessor getInstance() {
       return SingletonHolder.INSTANCE;
     }
 
     private static final class SingletonHolder {
-        static final DangerousProcessor INSTANCE = new DangerousProcessor();
+        static final ExperimentalProcessor INSTANCE = new ExperimentalProcessor();
     }
 }

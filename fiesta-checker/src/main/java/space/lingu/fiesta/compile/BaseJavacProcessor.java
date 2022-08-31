@@ -148,8 +148,25 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
         @Override
         public Void visitNewClass(NewClassTree node, Void unused) {
             TreePath path = trees.getPath(e.getCompilationUnit(), node.getIdentifier());
-            commonVisit(node, path);
+            commonVisit(node.getIdentifier(), path);
             return super.visitNewClass(node, unused);
+        }
+
+        @Override
+        public Void visitClass(ClassTree node, Void unused) {
+            List<? extends Tree> implementTrees = node.getImplementsClause();
+            List<Tree> treeList = new ArrayList<>(implementTrees);
+            treeList.add(node.getExtendsClause());
+            treeList.forEach(tree -> {
+                if (tree == null) {
+                    return;
+                }
+                TreePath path = trees.getPath(e.getCompilationUnit(), tree);
+                commonVisit(tree, path);
+            });
+
+
+            return super.visitClass(node, unused);
         }
 
         @Override
@@ -161,14 +178,14 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
         @Override
         public Void visitVariable(VariableTree node, Void unused) {
             TreePath path = trees.getPath(e.getCompilationUnit(), node.getType());
-            commonVisit(node, path);
+            commonVisit(node.getType(), path);
             return super.visitVariable(node, unused);
         }
 
         @Override
         public Void visitMemberSelect(MemberSelectTree node, Void unused) {
             TreePath path = trees.getPath(e.getCompilationUnit(), node.getExpression());
-            commonVisit(node, path);
+            commonVisit(node.getExpression(), path);
             return super.visitMemberSelect(node, unused);
         }
 

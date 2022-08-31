@@ -22,6 +22,12 @@ package space.lingu.fiesta.compile;
 public final class Annotations {
     public static final String FIESTA = "space.lingu.fiesta.Fiesta";
     public static final String DANGEROUS = "space.lingu.Dangerous";
+    public static final String EXPERIMENTAL = "space.lingu.Experimental";
+    public static final String WARNING = "space.lingu.Warning";
+    public static final String FIXME = "space.lingu.Fixme";
+    public static final String FIXMES = "space.lingu.Fixmes";
+    public static final String TODO = "space.lingu.Todo";
+    public static final String TODOS = "space.lingu.Todos";
 
     private Annotations() {}
 }

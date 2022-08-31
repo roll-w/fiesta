@@ -17,6 +17,8 @@
 package space.lingu.fiesta.compile.processor;
 
 import space.lingu.InfoPolicy;
+import space.lingu.NonNull;
+import space.lingu.Nullable;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.Processor;
 import space.lingu.fiesta.compile.TreeElement;
@@ -31,14 +33,17 @@ public abstract class MessageAnnotationProcessor<A extends Annotation> implement
     }
 
     @Override
-    public void process(Context context, TreeElement element, InfoPolicy policy) {
+    public final void process(Context context, TreeElement element, InfoPolicy policy) {
         A annotation = element.getAnnotation(provideClass());
         onCall(annotation, context, element, policy);
     }
 
     @Override
+    @NonNull
     public abstract Class<A> provideClass();
 
-    protected void onCall(A annotation, Context context, TreeElement element, InfoPolicy policy) {
-    }
+    protected abstract void onCall(@Nullable A annotation,
+                                   Context context,
+                                   TreeElement element,
+                                   InfoPolicy policy);
 }

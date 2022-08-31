@@ -18,39 +18,34 @@ package space.lingu.fiesta.compile.processor;
 
 import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
-import space.lingu.fiesta.Fiesta;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.Processor;
 import space.lingu.fiesta.compile.TreeElement;
 
+import java.lang.annotation.Annotation;
+
 /**
- * {@link space.lingu.fiesta.Fiesta}
+ * delegate to the real processor
  *
  * @author RollW
  */
-public class FiestaProcessor implements Processor<Fiesta> {
-    private FiestaProcessor() {
+public abstract class RepeatableAnnotationProcessor<M extends Annotation, A extends Annotation>
+        implements Processor<M> {
+    private final MessageAnnotationProcessor<A> minimalProcessor;
+
+    public RepeatableAnnotationProcessor(MessageAnnotationProcessor<A> messageAnnotationProcessor) {
+        minimalProcessor = messageAnnotationProcessor;
     }
 
     @Override
-    public void process(Context context, TreeElement element, InfoPolicy policy) {
-        if (policy == InfoPolicy.CALLER) {
-            return;
+    public final void process(Context context, TreeElement element, InfoPolicy policy) {
+        M annotation = element.getAnnotation(provideClass());
+        A[] aAnnotations = extractsMultipleAnnotations(annotation);
+        for (A aAnnotation : aAnnotations) {
+            minimalProcessor.onCall(aAnnotation, context, element, policy);
         }
-        context.getLog().note("Hello from the Fiesta!", element);
     }
 
     @NonNull
-    @Override
-    public Class<Fiesta> provideClass() {
-        return Fiesta.class;
-    }
-
-    public static FiestaProcessor getInstance() {
-      return SingletonHolder.INSTANCE;
-    }
-
-    private static final class SingletonHolder {
-        static final FiestaProcessor INSTANCE = new FiestaProcessor();
-    }
+    protected abstract A[] extractsMultipleAnnotations(M annotation);
 }

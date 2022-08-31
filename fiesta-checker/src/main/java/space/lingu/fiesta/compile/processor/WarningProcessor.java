@@ -16,55 +16,52 @@
 
 package space.lingu.fiesta.compile.processor;
 
-import space.lingu.Dangerous;
 import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
-import space.lingu.Nullable;
+import space.lingu.Warning;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
-
 /**
- * {@link Dangerous}
+ * {@link Warning}
  *
  * @author RollW
  */
-public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> {
+public class WarningProcessor extends MessageAnnotationProcessor<Warning> {
+    public WarningProcessor() {
+        super();
+    }
 
-    private DangerousProcessor() {
+    @Override
+    protected void onCall(Warning annotation, Context context, TreeElement element, InfoPolicy policy) {
+        if (annotation == null) {
+            return;
+        }
+        InfoPolicy annotationPolicy = annotation.policy();
+        if (annotationPolicy == InfoPolicy.NONE) {
+            return;
+        }
+        if (annotationPolicy == InfoPolicy.ALL || annotation.policy() == policy) {
+            if (annotation.value().isEmpty()) {
+                context.getLog().warn("WARNING! ", element);
+                return;
+            }
+            context.getLog()
+                    .warn("WARN: " + annotation.value(), element);
+        }
     }
 
     @Override
     @NonNull
-    public Class<Dangerous> provideClass() {
-        return Dangerous.class;
+    public Class<Warning> provideClass() {
+        return Warning.class;
     }
 
-    @Override
-    protected void onCall(@Nullable Dangerous dangerous,
-                          Context context, TreeElement element, InfoPolicy policy) {
-        if (dangerous == null) {
-            return;
-        }
-        InfoPolicy annotationPolicy = dangerous.policy();
-        if (annotationPolicy == InfoPolicy.NONE) {
-            return;
-        }
-        if (annotationPolicy == InfoPolicy.ALL || dangerous.policy() == policy) {
-            if (dangerous.message().isEmpty()) {
-                context.getLog().warn("Dangerous! ", element);
-                return;
-            }
-            context.getLog()
-                    .warn("Dangerous: " + dangerous.message(), element);
-        }
-    }
-
-    public static DangerousProcessor getInstance() {
+    public static WarningProcessor getInstance() {
       return SingletonHolder.INSTANCE;
     }
 
     private static final class SingletonHolder {
-        static final DangerousProcessor INSTANCE = new DangerousProcessor();
+        static final WarningProcessor INSTANCE = new WarningProcessor();
     }
 }

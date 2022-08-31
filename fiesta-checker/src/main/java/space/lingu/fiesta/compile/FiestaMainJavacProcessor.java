@@ -18,8 +18,7 @@ package space.lingu.fiesta.compile;
 
 import com.google.auto.service.AutoService;
 import space.lingu.NonNull;
-import space.lingu.fiesta.compile.processor.DangerousProcessor;
-import space.lingu.fiesta.compile.processor.FiestaProcessor;
+import space.lingu.fiesta.compile.processor.*;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -32,15 +31,23 @@ import java.util.List;
  */
 @AutoService(javax.annotation.processing.Processor.class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-@SupportedAnnotationTypes({Annotations.FIESTA, Annotations.DANGEROUS})
+@SupportedAnnotationTypes({
+        Annotations.FIESTA, Annotations.DANGEROUS, Annotations.WARNING,
+        Annotations.EXPERIMENTAL,
+        Annotations.FIXME, Annotations.FIXMES
+})
 public class FiestaMainJavacProcessor extends BaseJavacProcessor {
 
     @Override
     @NonNull
     protected List<Processor<?>> registerAllProcessors() {
         List<Processor<?>> processors = new ArrayList<>();
-        processors.add(new FiestaProcessor());
-        processors.add(new DangerousProcessor());
+        processors.add(FiestaProcessor.getInstance());
+        processors.add(DangerousProcessor.getInstance());
+        processors.add(WarningProcessor.getInstance());
+        processors.add(ExperimentalProcessor.getInstance());
+        processors.add(FixmeProcessor.getInstance());
+        processors.add(FixmesProcessor.getInstance());
         return processors;
     }
 }
