@@ -25,7 +25,9 @@
         <version>0.2.0</version>
         <relativePath>../fiesta-parent</relativePath>
     </parent>
+
     <artifactId>fiesta-annotations</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
