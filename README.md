@@ -38,7 +38,7 @@ dependencies {
     implementation("space.lingu.fiesta:fiesta-annotations:0.2.0")
     
     // optional
-    compileOnly("space.lingu.fiesta:fiesta-annotations:0.2.0")
+    compileOnly("space.lingu.fiesta:fiesta-checker:0.2.0")
 }
 ```
 
