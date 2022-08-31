@@ -14,25 +14,11 @@
  * limitations under the License.
  */
 
-package space.lingu.fiesta;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
+package space.lingu;
 
 /**
- * Prints "Hello from the Fiesta!" as test.
- *
  * @author RollW
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(value = {
-        CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
-        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER
-})
-public @interface Fiesta {
+public enum Level {
+    WARN, ERROR, NOTE;
 }

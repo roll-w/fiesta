@@ -28,8 +28,6 @@ import static java.lang.annotation.ElementType.*;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = {
-        FIELD, LOCAL_VARIABLE, METHOD, PARAMETER}
-)
+@Target(value = {FIELD, LOCAL_VARIABLE, METHOD, PARAMETER})
 public @interface Nullable {
 }

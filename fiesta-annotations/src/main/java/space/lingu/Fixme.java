@@ -16,24 +16,27 @@
 
 package space.lingu;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * An annotation to remind you to fix it.
+ *
  * @author RollW
  */
+
 @Documented
 @Retention(RetentionPolicy.SOURCE)
-@Target(value = {
+@Target({
         CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
-        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER}
-)
+        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER
+})
+@Repeatable(Fixmes.class)
 public @interface Fixme {
     String fixme();
 
     String since() default "";
+
+    Level level() default Level.WARN;
 }

@@ -30,10 +30,10 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {
         CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
-        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER}
-)
+        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER
+})
 public @interface Warning {
-    String value();
+    String value() default "";
 
     InfoPolicy policy() default InfoPolicy.CALLER;
 }
