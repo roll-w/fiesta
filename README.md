@@ -1,6 +1,47 @@
 # Fiesta
+[![Maven Central][mcBadge]][mcLink] [![License][liBadge]][liLink]
 
 A simple java annotations library with compile stage processing.
+## Required
+
+JDK 1.8 or higher.
+
+## Getting Started
+To add dependencies on Fiesta using Maven, use the following:
+
+```xml
+<dependencies>
+    <!-- Annotation Module -->
+    <dependency>
+        <groupId>space.lingu.fiesta</groupId>
+        <artifactId>fiesta-annotations</artifactId>
+        <version>0.2.0</version>
+    </dependency>
+    
+    <!-- Compile-time Annotation Check Module -->
+    <!-- Optional -->
+    <dependency>
+        <groupId>space.lingu.fiesta</groupId>
+        <artifactId>fiesta-checker</artifactId>
+        <version>0.2.0</version>
+        <scope>provided</scope>
+    </dependency>
+    
+    
+</dependencies>
+```
+
+Or using Gradle:
+
+```gradle
+dependencies {
+    implementation("space.lingu.fiesta:fiesta-annotations:0.2.0")
+    
+    // optional
+    compileOnly("space.lingu.fiesta:fiesta-annotations:0.2.0")
+}
+```
+
 
 # Licence
 
@@ -20,3 +61,7 @@ A simple java annotations library with compile stage processing.
    limitations under the License.
 ```
 
+[liBadge]: https://img.shields.io/github/license/Roll-W/fiesta?color=569cd6&style=flat-square
+[liLink]: https://github.com/Roll-W/fiesta/blob/master/LICENSE
+[mcBadge]: https://img.shields.io/maven-central/v/space.lingu.fiesta/fiesta-parent?style=flat-square
+[mcLink]: https://search.maven.org/search?q=g:space.lingu.fiesta
