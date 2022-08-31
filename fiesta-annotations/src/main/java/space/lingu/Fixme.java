@@ -27,15 +27,13 @@ import static java.lang.annotation.ElementType.*;
  * @author RollW
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(value = {
         CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
         PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER}
 )
-public @interface Experimental {
-    String info() default DEFAULT_HINT;
+public @interface Fixme {
+    String fixme();
 
-    InfoPolicy policy() default InfoPolicy.CALLER;
-
-    String DEFAULT_HINT = "You are using an experimental API.";
+    String since() default "";
 }

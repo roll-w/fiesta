@@ -18,7 +18,12 @@ package space.lingu.fiesta;
 
 import space.lingu.InfoPolicy;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
 
 /**
  * Prints "Hello from the Fiesta!" as test.
@@ -26,8 +31,11 @@ import java.lang.annotation.*;
  * @author RollW
  */
 @Documented
-@Target({ElementType.TYPE})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value = {
+        CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
+        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER}
+)
 public @interface Fiesta {
     InfoPolicy policy() default InfoPolicy.SELF;
 }
