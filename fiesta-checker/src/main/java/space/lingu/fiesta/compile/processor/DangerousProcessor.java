@@ -18,28 +18,27 @@ package space.lingu.fiesta.compile.processor;
 
 import space.lingu.Dangerous;
 import space.lingu.InfoPolicy;
-import space.lingu.NonNull;
-import space.lingu.fiesta.compile.Annotations;
 import space.lingu.fiesta.compile.Context;
-import space.lingu.fiesta.compile.Processor;
-
-import javax.lang.model.element.Element;
+import space.lingu.fiesta.compile.TreeElement;
 
 
 /**
+ * {@link Dangerous}
+ *
  * @author RollW
  */
-public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> implements Processor {
+public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> {
+
     public DangerousProcessor() {
     }
 
     @Override
-    protected Class<Dangerous> provideClass() {
+    public Class<Dangerous> provideClass() {
         return Dangerous.class;
     }
 
     @Override
-    protected void onCall(Dangerous dangerous, Context context, Element element, InfoPolicy policy) {
+    protected void onCall(Dangerous dangerous, Context context, TreeElement element, InfoPolicy policy) {
         if (dangerous == null) {
             return;
         }
@@ -55,11 +54,5 @@ public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> im
             context.getLog()
                     .warn("Dangerous: " + dangerous.message(), element);
         }
-    }
-
-    @Override
-    @NonNull
-    public String provideName() {
-        return Annotations.DANGEROUS;
     }
 }

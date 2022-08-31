@@ -19,22 +19,26 @@ package space.lingu.fiesta.compile.processor;
 import space.lingu.InfoPolicy;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.Processor;
+import space.lingu.fiesta.compile.TreeElement;
 
-import javax.lang.model.element.Element;
 import java.lang.annotation.Annotation;
 
 /**
  * @author RollW
  */
-public abstract class MessageAnnotationProcessor<A extends Annotation> implements Processor {
+public abstract class MessageAnnotationProcessor<A extends Annotation> implements Processor<A> {
+    public MessageAnnotationProcessor() {
+    }
+
     @Override
-    public void process(Context context, Element element, InfoPolicy policy) {
+    public void process(Context context, TreeElement element, InfoPolicy policy) {
         A annotation = element.getAnnotation(provideClass());
         onCall(annotation, context, element, policy);
     }
 
-    protected abstract Class<A> provideClass();
+    @Override
+    public abstract Class<A> provideClass();
 
-    protected void onCall(A annotation, Context context, Element element, InfoPolicy policy) {
+    protected void onCall(A annotation, Context context, TreeElement element, InfoPolicy policy) {
     }
 }

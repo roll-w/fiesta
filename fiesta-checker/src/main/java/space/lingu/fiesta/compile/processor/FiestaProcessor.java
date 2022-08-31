@@ -17,30 +17,30 @@
 package space.lingu.fiesta.compile.processor;
 
 import space.lingu.InfoPolicy;
-import space.lingu.NonNull;
-import space.lingu.fiesta.compile.Annotations;
+import space.lingu.fiesta.Fiesta;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.Processor;
-
-import javax.lang.model.element.Element;
+import space.lingu.fiesta.compile.TreeElement;
 
 /**
  * {@link space.lingu.fiesta.Fiesta}
  *
  * @author RollW
  */
-public class FiestaProcessor implements Processor {
+public class FiestaProcessor implements Processor<Fiesta> {
     public FiestaProcessor() {
     }
 
     @Override
-    public void process(Context context, Element element, InfoPolicy policy) {
+    public void process(Context context, TreeElement element, InfoPolicy policy) {
+        if (policy == InfoPolicy.CALLER) {
+            return;
+        }
         context.getLog().note("Hello from the Fiesta!", element);
     }
 
-    @NonNull
     @Override
-    public String provideName() {
-        return Annotations.FIESTA;
+    public Class<Fiesta> provideClass() {
+        return Fiesta.class;
     }
 }

@@ -16,10 +16,9 @@
 
 package space.lingu.fiesta.compile;
 
+import com.sun.source.util.Trees;
+
 import javax.annotation.processing.Messager;
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 
 /**
@@ -27,9 +26,11 @@ import javax.tools.Diagnostic;
  */
 public final class Log {
     private final Messager messager;
+    private final Trees trees;
 
-    public Log(Messager messager) {
+    public Log(Messager messager, Trees trees) {
         this.messager = messager;
+        this.trees = trees;
     }
 
     public void log(Diagnostic.Kind kind,
@@ -39,22 +40,12 @@ public final class Log {
 
     public void log(Diagnostic.Kind kind,
                     CharSequence charSequence,
-                    Element element) {
-        messager.printMessage(kind, charSequence, element);
-    }
-
-    public void log(Diagnostic.Kind kind,
-                    CharSequence msg,
-                    Element e,
-                    AnnotationMirror a) {
-        messager.printMessage(kind, msg, e, a);
-    }
-
-    public void log(Diagnostic.Kind kind,
-                    CharSequence msg,
-                    Element e, AnnotationMirror a,
-                    AnnotationValue v) {
-        messager.printMessage(kind, msg, e, a, v);
+                    TreeElement element) {
+        if (element.getType() == TreeElement.TreeElementType.ELEMENT) {
+            messager.printMessage(kind, charSequence, element.getElement());
+        } else {
+            trees.printMessage(kind, charSequence, element.getTree(), element.getCompilationUnitTree());
+        }
     }
 
     public void error(CharSequence s) {
@@ -69,15 +60,15 @@ public final class Log {
         log(Diagnostic.Kind.WARNING, s);
     }
 
-    public void error(CharSequence s, Element element) {
+    public void error(CharSequence s, TreeElement element) {
         log(Diagnostic.Kind.ERROR, s, element);
     }
 
-    public void note(CharSequence s, Element element) {
+    public void note(CharSequence s, TreeElement element) {
         log(Diagnostic.Kind.NOTE, s, element);
     }
 
-    public void warn(CharSequence s, Element element) {
+    public void warn(CharSequence s, TreeElement element) {
         log(Diagnostic.Kind.WARNING, s, element);
     }
 }

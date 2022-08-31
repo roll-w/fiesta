@@ -19,14 +19,14 @@ package space.lingu.fiesta.compile;
 import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 
-import javax.lang.model.element.Element;
+import java.lang.annotation.Annotation;
 
 /**
  * @author RollW
  */
-public interface Processor {
-    void process(Context context, Element element, InfoPolicy policy);
+public interface Processor<A extends Annotation> {
+    void process(Context context, TreeElement element, InfoPolicy policy);
 
     @NonNull
-    String provideName();
+    Class<A> provideClass();
 }

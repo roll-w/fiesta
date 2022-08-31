@@ -16,31 +16,29 @@
 
 package space.lingu.fiesta.compile;
 
-import com.sun.source.util.Trees;
+import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.tree.Tree;
 
-import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
+import java.lang.annotation.Annotation;
 
 /**
  * @author RollW
  */
-public class Context {
-    private final Log log;
-    private final Trees trees;
+public interface TreeElement {
 
-    Context(ProcessingEnvironment environment, Trees trees) {
-        log = new Log(environment.getMessager(), trees);
-        this.trees = trees;
-    }
+    Element getElement();
 
-    public static Context createContext(ProcessingEnvironment environment, Trees trees) {
-        return new Context(environment, trees);
-    }
+    Tree getTree();
 
-    public Log getLog() {
-        return log;
-    }
+    CompilationUnitTree getCompilationUnitTree();
 
-    public Trees getTrees() {
-        return trees;
+    TreeElementType getType();
+
+    <A extends Annotation> A getAnnotation(Class<A> provideClass);
+
+    enum TreeElementType {
+        ELEMENT,
+        TREE
     }
 }

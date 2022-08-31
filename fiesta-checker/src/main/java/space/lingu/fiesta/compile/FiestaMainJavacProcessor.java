@@ -34,10 +34,11 @@ import java.util.List;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes({Annotations.FIESTA, Annotations.DANGEROUS})
 public class FiestaMainJavacProcessor extends BaseJavacProcessor {
+
     @Override
     @NonNull
-    protected List<Processor> registerAllProcessors() {
-        List<Processor> processors = new ArrayList<>();
+    protected List<Processor<?>> registerAllProcessors() {
+        List<Processor<?>> processors = new ArrayList<>();
         processors.add(new FiestaProcessor());
         processors.add(new DangerousProcessor());
         return processors;
