@@ -30,6 +30,8 @@ To add dependencies on Fiesta using Maven, use the following:
     
 </dependencies>
 ```
+> If you don't see warning output when compiling your project via maven,
+set `<showWarnings>true<showWarnings>` in the maven-compiler-plugin configuration.
 
 Or using Gradle:
 
