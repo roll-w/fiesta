@@ -24,8 +24,19 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * This annotation is to remind you that this is an experimental API.
+ * Signifies that a public API (public class, method or field) is subject to
+ * incompatible changes, or even removal, in a future release.
+ * <p>
+ * It is generally safe for applications to depend on beta APIs,
+ * at the cost of some extra work during upgrades.
+ * However, it is generally inadvisable for libraries
+ * (which get included on users' CLASSPATHs, outside the library
+ * developers' control) to do so.
+ *
  * @author RollW
  */
+// @see com.google.common.annotations.Beta in Guava.
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {

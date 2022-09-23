@@ -19,15 +19,12 @@ To add dependencies on Fiesta using Maven, use the following:
     </dependency>
     
     <!-- Compile-time Annotation Check Module -->
-    <!-- Optional -->
     <dependency>
         <groupId>space.lingu.fiesta</groupId>
         <artifactId>fiesta-checker</artifactId>
         <version>0.2.0</version>
         <scope>provided</scope>
     </dependency>
-    
-    
 </dependencies>
 ```
 > If you don't see warning output when compiling your project via maven,
@@ -37,16 +34,38 @@ Or using Gradle:
 
 ```gradle
 dependencies {
+    // Annotation Module
     implementation("space.lingu.fiesta:fiesta-annotations:0.2.0")
     
-    // optional
+    // Compile-time Annotation Check Module
     compileOnly("space.lingu.fiesta:fiesta-checker:0.2.0")
 }
 ```
+> The compile-time annotation checker module is used to process annotations and output information during compilation. 
+> 
+> If you don't need the feature, it's safe not to use the dependency.
 
+
+After adding dependencies on Fiesta, you can use the `@Fiesta` annotation to test if it works.
+
+Like this:
+```java
+@Fiesta
+public class Main {
+    // other code
+}
+```
+If you have set all options and dependencies correctly then you can see the message below when compiling:
+> Hello from the Fiesta!
+
+You can use more annotations, such as `@Todo` to remind you to continue work on unfinished things, 
+or `@Experimental` to remind users of the API that this is an experimental API.
+
+Sincerely hope that you can improve your efficiency by using this library!
+
+To report bugs or request a new feature, please open a new issue.
 
 # Licence
-
 ```text
    Copyright (C) 2022 Lingu
 
