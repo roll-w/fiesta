@@ -21,8 +21,6 @@ import space.lingu.NonNull;
 import space.lingu.fiesta.compile.processor.*;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,6 @@ import java.util.List;
  * @author RollW
  */
 @AutoService(javax.annotation.processing.Processor.class)
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes({
         Annotations.FIESTA, Annotations.DANGEROUS, Annotations.WARNING,
         Annotations.EXPERIMENTAL,

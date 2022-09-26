@@ -24,6 +24,7 @@ import space.lingu.NonNull;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
@@ -91,6 +92,11 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
             }
         }
         return roundEnv.processingOver();
+    }
+
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latest();
     }
 
     @NonNull
