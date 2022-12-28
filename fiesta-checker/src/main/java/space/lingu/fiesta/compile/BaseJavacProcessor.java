@@ -16,8 +16,19 @@
 
 package space.lingu.fiesta.compile;
 
-import com.sun.source.tree.*;
-import com.sun.source.util.*;
+import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.MemberReferenceTree;
+import com.sun.source.tree.MemberSelectTree;
+import com.sun.source.tree.MethodInvocationTree;
+import com.sun.source.tree.NewClassTree;
+import com.sun.source.tree.Tree;
+import com.sun.source.tree.VariableTree;
+import com.sun.source.util.JavacTask;
+import com.sun.source.util.TaskEvent;
+import com.sun.source.util.TaskListener;
+import com.sun.source.util.TreePath;
+import com.sun.source.util.TreeScanner;
+import com.sun.source.util.Trees;
 import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 
@@ -29,7 +40,11 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author RollW
@@ -67,12 +82,13 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
-        super.init(processingEnv);
-        JavacTask javacTask = JavacTask.instance(processingEnv);
+        ProcessingEnvironment unwrap = jbUnwrap(ProcessingEnvironment.class, processingEnv);
+        super.init(unwrap);
+        JavacTask javacTask = JavacTask.instance(unwrap);
         javacTask.addTaskListener(this);
 
         trees = Trees.instance(javacTask);
-        context = Context.createContext(processingEnv, trees);
+        context = Context.createContext(unwrap, trees);
     }
 
 
@@ -246,8 +262,6 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
             this.clz = clz;
         }
     }
-
-
 
 
     // -------------------------------------------
