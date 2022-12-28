@@ -15,14 +15,14 @@ To add dependencies on Fiesta using Maven, use the following:
     <dependency>
         <groupId>space.lingu.fiesta</groupId>
         <artifactId>fiesta-annotations</artifactId>
-        <version>0.2.0</version>
+        <version>0.2.1</version>
     </dependency>
     
     <!-- Compile-time Annotation Check Module -->
     <dependency>
         <groupId>space.lingu.fiesta</groupId>
         <artifactId>fiesta-checker</artifactId>
-        <version>0.2.0</version>
+        <version>0.2.1</version>
         <scope>provided</scope>
     </dependency>
 </dependencies>
@@ -35,10 +35,10 @@ Or using Gradle:
 ```gradle
 dependencies {
     // Annotation Module
-    implementation("space.lingu.fiesta:fiesta-annotations:0.2.0")
+    implementation("space.lingu.fiesta:fiesta-annotations:0.2.1")
     
     // Compile-time Annotation Check Module
-    compileOnly("space.lingu.fiesta:fiesta-checker:0.2.0")
+    compileOnly("space.lingu.fiesta:fiesta-checker:0.2.1")
 }
 ```
 > The compile-time annotation checker module is used to process annotations and output information during compilation. 
