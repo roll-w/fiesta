@@ -33,7 +33,26 @@ import static java.lang.annotation.ElementType.*;
 })
 @Repeatable(Todos.class)
 public @interface Todo {
-    String todo();
+    /**
+     * Alias for {@link #todo()}
+     */
+    String value();
 
+    /**
+     * The message of the thing to do.
+     */
+    String todo() default "";
+
+    /**
+     * The date of the thing to do.
+     */
     String since() default "";
+
+    /**
+     * The log level of the annotation.
+     *
+     */
+    Level level() default Level.NOTE;
+
+    InfoPolicy policy() default InfoPolicy.SELF;
 }
