@@ -17,6 +17,7 @@
 package space.lingu.fiesta.compile;
 
 import com.sun.source.util.Trees;
+import space.lingu.Level;
 
 import javax.annotation.processing.Messager;
 import javax.tools.Diagnostic;
@@ -74,5 +75,21 @@ public final class Log {
 
     public void mandatoryWarn(CharSequence s, TreeElement element) {
         log(Diagnostic.Kind.MANDATORY_WARNING, s, element);
+    }
+
+    public void log(Level level, CharSequence charSequence, TreeElement element) {
+        switch (level) {
+            case ERROR:
+                error(charSequence, element);
+                break;
+            case WARN:
+                warn(charSequence, element);
+                break;
+            case NOTE:
+                note(charSequence, element);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown level: " + level);
+        }
     }
 }

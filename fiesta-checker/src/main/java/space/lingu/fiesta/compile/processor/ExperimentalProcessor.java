@@ -18,9 +18,12 @@ package space.lingu.fiesta.compile.processor;
 
 import space.lingu.Experimental;
 import space.lingu.InfoPolicy;
+import space.lingu.Level;
 import space.lingu.NonNull;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
+
+import java.util.Objects;
 
 /**
  * {@link Experimental}
@@ -42,10 +45,27 @@ public class ExperimentalProcessor extends MessageAnnotationProcessor<Experiment
         if (annotationPolicy == InfoPolicy.NONE) {
             return;
         }
-        if (annotationPolicy == InfoPolicy.ALL || annotation.policy() == policy) {
-            context.getLog()
-                    .warn("WARN: " + annotation.info(), element);
+        String message = getMessage(annotation);
+        Level level = annotation.level();
+        if (annotationPolicy.shouldOutput(policy)) {
+            context.getLog().log(
+                    level,
+                    prefix(level) + message,
+                    element
+            );
         }
+    }
+
+    private String prefix(Level level) {
+        return level.name() + ": ";
+    }
+
+    private String getMessage(Experimental annotation) {
+        String value = annotation.value();
+        if (Objects.equals(value, Experimental.DEFAULT_HINT)) {
+            return annotation.info();
+        }
+        return value;
     }
 
     @Override
@@ -55,7 +75,7 @@ public class ExperimentalProcessor extends MessageAnnotationProcessor<Experiment
     }
 
     public static ExperimentalProcessor getInstance() {
-      return SingletonHolder.INSTANCE;
+        return SingletonHolder.INSTANCE;
     }
 
     private static final class SingletonHolder {
