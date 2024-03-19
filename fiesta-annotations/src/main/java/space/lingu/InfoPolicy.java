@@ -28,12 +28,12 @@ public enum InfoPolicy {
     NONE,
 
     /**
-     * Caller will produce message.
+     * The Caller will produce a message.
      */
     CALLER,
 
     /**
-     * Annotated will produce message.
+     * Annotated will produce a message.
      */
     SELF,
 

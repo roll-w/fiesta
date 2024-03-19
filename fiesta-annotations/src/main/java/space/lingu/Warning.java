@@ -35,5 +35,7 @@ import static java.lang.annotation.ElementType.*;
 public @interface Warning {
     String value() default "";
 
+    Level level() default Level.WARN;
+
     InfoPolicy policy() default InfoPolicy.CALLER;
 }

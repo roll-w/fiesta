@@ -34,11 +34,13 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {
         CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
-        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER}
-)
-@Experimental(info = "This annotation is not stable yet.", policy = InfoPolicy.NONE)
+        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER
+})
+@Experimental("This annotation is not stable yet.")
 public @interface Preview {
     String value() default "";
+
+    Level level() default Level.NOTE;
 
     InfoPolicy policy() default InfoPolicy.CALLER;
 }

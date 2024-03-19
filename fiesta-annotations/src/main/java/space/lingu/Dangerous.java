@@ -24,16 +24,27 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * Annotated with this annotation means that the method, field, or
+ * class is dangerous. It may cause some unexpected results or exceptions.
+ * You should be careful when using it.
+ *
  * @author RollW
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {
         CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
-        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER}
-)
+        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER
+})
 public @interface Dangerous {
+    /**
+     * Alias for {@link #message()}.
+     */
+    String value() default "";
+
     String message() default "";
+
+    Level level() default Level.WARN;
 
     InfoPolicy policy() default InfoPolicy.CALLER;
 }

@@ -41,11 +41,35 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {
         CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD,
-        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER}
-)
+        PACKAGE, PARAMETER, TYPE, TYPE_USE, TYPE_PARAMETER
+})
 public @interface Experimental {
+    /**
+     * Alias for {@link #info()}.
+     */
+    String value() default DEFAULT_HINT;
+
+    /**
+     * Information about the experimental API.
+     *
+     * @return the information.
+     */
     String info() default DEFAULT_HINT;
 
+    /**
+     * The level of the information.
+     *
+     * @return the level.
+     * @see Level
+     */
+    Level level() default Level.NOTE;
+
+    /**
+     * Policy for the information of this annotation on compile time.
+     *
+     * @return the policy.
+     * @see InfoPolicy
+     */
     InfoPolicy policy() default InfoPolicy.CALLER;
 
     String DEFAULT_HINT = "You are using an experimental API.";

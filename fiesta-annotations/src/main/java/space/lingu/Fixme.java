@@ -34,9 +34,19 @@ import static java.lang.annotation.ElementType.*;
 })
 @Repeatable(Fixmes.class)
 public @interface Fixme {
-    String fixme();
+    String value();
+
+    @java.lang.Deprecated
+    @Deprecated(
+            replaceWith = @ReplaceWith("value"),
+            since = "0.3.0",
+            forRemoval = true
+    )
+    String fixme() default "";
 
     String since() default "";
 
     Level level() default Level.WARN;
+
+    InfoPolicy policy() default InfoPolicy.SELF;
 }
