@@ -19,40 +19,13 @@ package space.lingu;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
 
 /**
- * More detailed {@code Deprecated}.
- *
  * @author RollW
- * @see java.lang.Deprecated
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE})
 @Experimental(value = "This annotation is not stable yet.", policy = InfoPolicy.NONE)
-public @interface Deprecated {
-    /**
-     * Messages you want to alert others to with this note.
-     *
-     * @return message
-     */
-    String message() default "";
-
-    /**
-     * Replace with.
-     *
-     * @return replace with.
-     */
-    ReplaceWith[] replaceWith() default {};
-
-    String since() default "";
-
-    boolean forRemoval() default false;
-
-    Level level() default Level.WARN;
-
-    InfoPolicy policy() default InfoPolicy.CALLER;
+public @interface ReplaceWith {
+    String value();
 }
