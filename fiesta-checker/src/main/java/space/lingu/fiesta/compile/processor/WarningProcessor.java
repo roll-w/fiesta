@@ -19,6 +19,7 @@ package space.lingu.fiesta.compile.processor;
 import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 import space.lingu.Warning;
+import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
@@ -28,20 +29,17 @@ import space.lingu.fiesta.compile.TreeElement;
  * @author RollW
  */
 public class WarningProcessor extends MessageAnnotationProcessor<Warning> {
-    public WarningProcessor() {
+    private WarningProcessor() {
         super();
     }
 
     @Override
-    protected void onCall(Warning annotation, Context context, TreeElement element, InfoPolicy policy) {
+    protected void onCall(Warning annotation, Context context, TreeElement element, ChainType chainType) {
         if (annotation == null) {
             return;
         }
         InfoPolicy annotationPolicy = annotation.policy();
-        if (annotationPolicy == InfoPolicy.NONE) {
-            return;
-        }
-        if (annotationPolicy == InfoPolicy.ALL || annotation.policy() == policy) {
+        if (chainType.shouldOutput(annotationPolicy)) {
             if (annotation.value().isEmpty()) {
                 context.getLog().warn("WARNING! ", element);
                 return;

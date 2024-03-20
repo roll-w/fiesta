@@ -16,10 +16,10 @@
 
 package space.lingu.fiesta.compile.processor;
 
-import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 import space.lingu.Nullable;
 import space.lingu.Todo;
+import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
@@ -27,17 +27,17 @@ import space.lingu.fiesta.compile.TreeElement;
  * @author RollW
  */
 public class TodoProcessor extends MessageAnnotationProcessor<Todo> {
-    public TodoProcessor() {
+    private TodoProcessor() {
         super();
     }
 
     @Override
     protected void onCall(@Nullable Todo annotation, Context context,
-                          TreeElement element, InfoPolicy policy) {
+                          TreeElement element, ChainType chainType) {
         if (annotation == null) {
             return;
         }
-        if (policy == InfoPolicy.CALLER) {
+        if (chainType == ChainType.CALLER) {
             return;
         }
         String since = annotation.since();

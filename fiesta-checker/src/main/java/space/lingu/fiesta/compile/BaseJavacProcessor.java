@@ -29,7 +29,6 @@ import com.sun.source.util.TaskListener;
 import com.sun.source.util.TreePath;
 import com.sun.source.util.TreeScanner;
 import com.sun.source.util.Trees;
-import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -103,7 +102,11 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
             }
             for (Element element : annotatedClass) {
                 for (Processor<?> processor : processorNamePair.processors) {
-                    processor.process(context, JavacTreeElement.create(context, element), InfoPolicy.SELF);
+                    processor.process(
+                            context,
+                            JavacTreeElement.create(context, element),
+                            ChainType.SELF
+                    );
                 }
             }
         }
@@ -162,7 +165,7 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
                                             selectElement,
                                             e.getCompilationUnit()
                                     ),
-                                    InfoPolicy.CALLER)));
+                                    ChainType.CALLER)));
 
             return super.visitMethodInvocation(node, unused);
         }
@@ -226,7 +229,7 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
                                             node,
                                             e.getCompilationUnit()
                                     ),
-                                    InfoPolicy.CALLER))
+                                    ChainType.CALLER))
                     );
         }
 
@@ -244,7 +247,7 @@ public abstract class BaseJavacProcessor extends AbstractProcessor implements Ta
                                             node, element,
                                             e.getCompilationUnit()
                                     ),
-                                    InfoPolicy.CALLER))
+                                    ChainType.CALLER))
                     );
         }
 

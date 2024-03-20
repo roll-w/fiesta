@@ -41,11 +41,4 @@ public enum InfoPolicy {
      * With {@link #CALLER} and {@link #SELF} effects.
      */
     ALL;
-
-    public boolean shouldOutput(InfoPolicy policy) {
-        if (this == NONE) {
-            return false;
-        }
-        return this == ALL || this == policy;
-    }
 }
