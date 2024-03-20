@@ -20,6 +20,7 @@ import space.lingu.Experimental;
 import space.lingu.InfoPolicy;
 import space.lingu.Level;
 import space.lingu.NonNull;
+import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
@@ -31,13 +32,13 @@ import java.util.Objects;
  * @author RollW
  */
 public class ExperimentalProcessor extends MessageAnnotationProcessor<Experimental> {
-    public ExperimentalProcessor() {
+    private ExperimentalProcessor() {
         super();
     }
 
     @Override
     protected void onCall(Experimental annotation, Context context,
-                          TreeElement element, InfoPolicy policy) {
+                          TreeElement element, ChainType chainType) {
         if (annotation == null) {
             return;
         }
@@ -47,7 +48,7 @@ public class ExperimentalProcessor extends MessageAnnotationProcessor<Experiment
         }
         String message = getMessage(annotation);
         Level level = annotation.level();
-        if (annotationPolicy.shouldOutput(policy)) {
+        if (chainType.shouldOutput(annotationPolicy)) {
             context.getLog().log(
                     level,
                     prefix(level) + message,

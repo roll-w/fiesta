@@ -16,9 +16,9 @@
 
 package space.lingu.fiesta.compile.processor;
 
-import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 import space.lingu.fiesta.Fiesta;
+import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.Processor;
 import space.lingu.fiesta.compile.TreeElement;
@@ -33,8 +33,8 @@ public class FiestaProcessor implements Processor<Fiesta> {
     }
 
     @Override
-    public void process(Context context, TreeElement element, InfoPolicy policy) {
-        if (policy == InfoPolicy.CALLER) {
+    public void process(Context context, TreeElement element, ChainType chainType) {
+        if (chainType == ChainType.CALLER) {
             return;
         }
         context.getLog().note("Hello from the Fiesta!", element);

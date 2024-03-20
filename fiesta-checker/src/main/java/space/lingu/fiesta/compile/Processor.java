@@ -16,7 +16,6 @@
 
 package space.lingu.fiesta.compile;
 
-import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
 
 import java.lang.annotation.Annotation;
@@ -25,7 +24,7 @@ import java.lang.annotation.Annotation;
  * @author RollW
  */
 public interface Processor<A extends Annotation> {
-    void process(Context context, TreeElement element, InfoPolicy policy);
+    void process(Context context, TreeElement element, ChainType chainType);
 
     @NonNull
     Class<A> provideClass();

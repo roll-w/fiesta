@@ -17,6 +17,7 @@
 package space.lingu.fiesta.compile.processor;
 
 import space.lingu.*;
+import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
@@ -32,11 +33,11 @@ public class FixmeProcessor extends MessageAnnotationProcessor<Fixme> {
 
     @Override
     protected void onCall(@Nullable Fixme annotation, Context context,
-                          TreeElement element, InfoPolicy policy) {
+                          TreeElement element, ChainType chainType) {
         if (annotation == null) {
             return;
         }
-        if (policy == InfoPolicy.CALLER) {
+        if (chainType == ChainType.CALLER) {
             return;
         }
 

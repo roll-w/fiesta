@@ -18,8 +18,10 @@ package space.lingu.fiesta.compile.processor;
 
 import space.lingu.Dangerous;
 import space.lingu.InfoPolicy;
+import space.lingu.Level;
 import space.lingu.NonNull;
 import space.lingu.Nullable;
+import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
 
@@ -42,7 +44,7 @@ public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> {
 
     @Override
     protected void onCall(@Nullable Dangerous dangerous,
-                          Context context, TreeElement element, InfoPolicy policy) {
+                          Context context, TreeElement element, ChainType chainType) {
         if (dangerous == null) {
             return;
         }
@@ -50,18 +52,21 @@ public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> {
         if (annotationPolicy == InfoPolicy.NONE) {
             return;
         }
-        if (annotationPolicy == InfoPolicy.ALL || dangerous.policy() == policy) {
-            if (dangerous.message().isEmpty()) {
-                context.getLog().warn("Dangerous! ", element);
-                return;
-            }
-            context.getLog()
-                    .warn("Dangerous: " + dangerous.message(), element);
+        Level level = dangerous.level();
+        if (!chainType.shouldOutput(annotationPolicy)) {
+            return;
         }
+
+        if (dangerous.message().isEmpty()) {
+            context.getLog().log(level, "Dangerous!",
+                    element);
+            return;
+        }
+        context.getLog().log(level, "Dangerous: " + dangerous.message(), element);
     }
 
     public static DangerousProcessor getInstance() {
-      return SingletonHolder.INSTANCE;
+        return SingletonHolder.INSTANCE;
     }
 
     private static final class SingletonHolder {

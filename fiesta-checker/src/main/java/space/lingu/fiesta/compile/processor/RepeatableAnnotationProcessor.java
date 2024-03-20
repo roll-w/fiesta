@@ -16,8 +16,8 @@
 
 package space.lingu.fiesta.compile.processor;
 
-import space.lingu.InfoPolicy;
 import space.lingu.NonNull;
+import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.Processor;
 import space.lingu.fiesta.compile.TreeElement;
@@ -38,11 +38,12 @@ public abstract class RepeatableAnnotationProcessor<M extends Annotation, A exte
     }
 
     @Override
-    public final void process(Context context, TreeElement element, InfoPolicy policy) {
+    public final void process(Context context, TreeElement element,
+                              ChainType chainType) {
         M annotation = element.getAnnotation(provideClass());
         A[] aAnnotations = extractsMultipleAnnotations(annotation);
         for (A aAnnotation : aAnnotations) {
-            minimalProcessor.onCall(aAnnotation, context, element, policy);
+            minimalProcessor.onCall(aAnnotation, context, element, chainType);
         }
     }
 
