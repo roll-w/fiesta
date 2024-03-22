@@ -21,11 +21,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
+ * Specifies a code fragment that can be used to replace
+ * a deprecated function, property or class.
+ *
  * @author RollW
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Experimental(value = "This annotation is not stable yet.", policy = InfoPolicy.NONE)
 public @interface ReplaceWith {
+    /**
+     * Provide the replacement expression.
+     */
     String value();
 }

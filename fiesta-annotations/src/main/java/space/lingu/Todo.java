@@ -34,25 +34,41 @@ import static java.lang.annotation.ElementType.*;
 @Repeatable(Todos.class)
 public @interface Todo {
     /**
-     * Alias for {@link #todo()}
+     * The message of the thing to do.
      */
     String value();
 
     /**
-     * The message of the thing to do.
+     * @deprecated Replace with {@link #value()}
      */
+    @java.lang.Deprecated
+    @Deprecated(value = "")
     String todo() default "";
 
     /**
-     * The date of the thing to do.
+     * Returns the version in which the annotated element was added.
+     * The version string is in the same format and namespace as the value of
+     * the {@code @since} javadoc tag.
+     * <p>
+     * The default value is the empty string.
+     *
+     * @return the version string
      */
     String since() default "";
 
     /**
      * The log level of the annotation.
      *
+     * @return the level.
+     * @see Level
      */
     Level level() default Level.NOTE;
 
+    /**
+     * Policy for the information of this annotation at compile time.
+     *
+     * @return the policy.
+     * @see InfoPolicy
+     */
     InfoPolicy policy() default InfoPolicy.SELF;
 }

@@ -40,7 +40,19 @@ import static java.lang.annotation.ElementType.*;
 public @interface Preview {
     String value() default "";
 
+    /**
+     * The log level of the annotation.
+     *
+     * @return the level.
+     * @see Level
+     */
     Level level() default Level.NOTE;
 
+    /**
+     * Policy for the information of this annotation at compile time.
+     *
+     * @return the policy.
+     * @see InfoPolicy
+     */
     InfoPolicy policy() default InfoPolicy.CALLER;
 }

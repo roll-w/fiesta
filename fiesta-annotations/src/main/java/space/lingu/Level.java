@@ -17,6 +17,8 @@
 package space.lingu;
 
 /**
+ * Represents the level of a log message.
+ *
  * @author RollW
  */
 public enum Level {
