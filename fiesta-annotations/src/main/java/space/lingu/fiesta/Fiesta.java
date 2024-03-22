@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 /**
- * Prints "Hello from the Fiesta!" as test.
+ * Prints "Hello from the Fiesta!" as a test.
  *
  * @author RollW
  */

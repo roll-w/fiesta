@@ -35,7 +35,19 @@ import static java.lang.annotation.ElementType.*;
 public @interface Warning {
     String value() default "";
 
+    /**
+     * The log level of the annotation.
+     *
+     * @return the level.
+     * @see Level
+     */
     Level level() default Level.WARN;
 
+    /**
+     * Policy for the information output of this annotation at compile time.
+     *
+     * @return the policy.
+     * @see InfoPolicy
+     */
     InfoPolicy policy() default InfoPolicy.CALLER;
 }

@@ -57,7 +57,7 @@ public @interface Experimental {
     String info() default DEFAULT_HINT;
 
     /**
-     * The level of the information.
+     * The log level of the information.
      *
      * @return the level.
      * @see Level
@@ -65,7 +65,7 @@ public @interface Experimental {
     Level level() default Level.NOTE;
 
     /**
-     * Policy for the information of this annotation on compile time.
+     * Policy for the information of this annotation at compile time.
      *
      * @return the policy.
      * @see InfoPolicy

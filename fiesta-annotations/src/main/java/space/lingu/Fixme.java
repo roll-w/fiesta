@@ -34,11 +34,21 @@ import static java.lang.annotation.ElementType.*;
 })
 @Repeatable(Fixmes.class)
 public @interface Fixme {
+    /**
+     * Information about this thing to be fixed.
+     *
+     * @return information
+     */
     String value();
 
+    /**
+     * @deprecated Replace with {@link #value()}
+     */
     @java.lang.Deprecated
     @Deprecated(
-            replaceWith = @ReplaceWith("value"),
+            value = "This method is deprecated and will be removed in future version, " +
+                    "please use value() instead. ",
+            replaceWith = @ReplaceWith("value()"),
             since = "0.3.0",
             forRemoval = true
     )
@@ -46,7 +56,19 @@ public @interface Fixme {
 
     String since() default "";
 
+    /**
+     * The log level of the annotation.
+     *
+     * @return the level.
+     * @see Level
+     */
     Level level() default Level.WARN;
 
+    /**
+     * Policy for the information of this annotation at compile time.
+     *
+     * @return the policy.
+     * @see InfoPolicy
+     */
     InfoPolicy policy() default InfoPolicy.SELF;
 }
