@@ -34,31 +34,33 @@ public class FixmeProcessor extends MessageAnnotationProcessor<Fixme> {
     @Override
     protected void onCall(@Nullable Fixme annotation, Context context,
                           TreeElement element, ChainType chainType) {
-        if (annotation == null) {
-            return;
-        }
         if (chainType == ChainType.CALLER) {
             return;
         }
 
         String since = annotation.since();
-        StringBuilder builder = new StringBuilder("FIXME: ");
-        builder.append(annotation.fixme());
+        String value = valueOf(annotation);
+        StringBuilder builder = new StringBuilder("FIXME");
+        if (value.isEmpty()) {
+            builder.append(' ');
+        } else {
+            builder.append(": ");
+        }
+        builder.append(value);
         if (!since.isEmpty()) {
             builder.append("\nSince: ").append(since);
         }
 
         Level level = annotation.level();
-        switch (level) {
-            case WARN:
-                context.getLog().warn(builder.toString(), element);
-                break;
-            case ERROR:
-                context.getLog().error(builder.toString(), element);
-                break;
-            default:
-                context.getLog().note(builder.toString(), element);
+        context.getLog().log(level, builder.toString(), element);
+    }
+
+    @SuppressWarnings("deprecation")
+    private String valueOf(Fixme fixme) {
+        if (fixme.value().isEmpty()) {
+            return fixme.fixme();
         }
+        return fixme.value();
     }
 
     @NonNull

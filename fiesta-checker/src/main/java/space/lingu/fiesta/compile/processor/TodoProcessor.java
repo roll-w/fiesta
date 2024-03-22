@@ -17,7 +17,6 @@
 package space.lingu.fiesta.compile.processor;
 
 import space.lingu.NonNull;
-import space.lingu.Nullable;
 import space.lingu.Todo;
 import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
@@ -32,21 +31,28 @@ public class TodoProcessor extends MessageAnnotationProcessor<Todo> {
     }
 
     @Override
-    protected void onCall(@Nullable Todo annotation, Context context,
+    protected void onCall(@NonNull Todo annotation, Context context,
                           TreeElement element, ChainType chainType) {
-        if (annotation == null) {
-            return;
-        }
         if (chainType == ChainType.CALLER) {
             return;
         }
         String since = annotation.since();
+        String value = valueOf(annotation);
         StringBuilder builder = new StringBuilder("TODO: ");
-        builder.append(annotation.todo());
+        builder.append(value);
         if (!since.isEmpty()) {
             builder.append("\nSince: ").append(since);
         }
         context.getLog().note(builder.toString(), element);
+    }
+
+
+    @SuppressWarnings("deprecation")
+    private String valueOf(Todo todo) {
+        if (todo.value().isEmpty()) {
+            return todo.todo();
+        }
+        return todo.value();
     }
 
     @NonNull

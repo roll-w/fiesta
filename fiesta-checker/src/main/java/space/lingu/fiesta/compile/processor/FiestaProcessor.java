@@ -24,7 +24,7 @@ import space.lingu.fiesta.compile.Processor;
 import space.lingu.fiesta.compile.TreeElement;
 
 /**
- * {@link space.lingu.fiesta.Fiesta}
+ * {@link Fiesta}
  *
  * @author RollW
  */

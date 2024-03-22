@@ -20,7 +20,6 @@ import space.lingu.Dangerous;
 import space.lingu.InfoPolicy;
 import space.lingu.Level;
 import space.lingu.NonNull;
-import space.lingu.Nullable;
 import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.TreeElement;
@@ -43,11 +42,8 @@ public class DangerousProcessor extends MessageAnnotationProcessor<Dangerous> {
     }
 
     @Override
-    protected void onCall(@Nullable Dangerous dangerous,
+    protected void onCall(@NonNull Dangerous dangerous,
                           Context context, TreeElement element, ChainType chainType) {
-        if (dangerous == null) {
-            return;
-        }
         InfoPolicy annotationPolicy = dangerous.policy();
         if (annotationPolicy == InfoPolicy.NONE) {
             return;

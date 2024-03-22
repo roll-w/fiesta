@@ -17,7 +17,6 @@
 package space.lingu.fiesta.compile.processor;
 
 import space.lingu.NonNull;
-import space.lingu.Nullable;
 import space.lingu.fiesta.compile.ChainType;
 import space.lingu.fiesta.compile.Context;
 import space.lingu.fiesta.compile.Processor;
@@ -35,6 +34,9 @@ public abstract class MessageAnnotationProcessor<A extends Annotation> implement
     @Override
     public final void process(Context context, TreeElement element, ChainType chainType) {
         A annotation = element.getAnnotation(provideClass());
+        if (annotation == null) {
+            return;
+        }
         onCall(annotation, context, element, chainType);
     }
 
@@ -46,7 +48,7 @@ public abstract class MessageAnnotationProcessor<A extends Annotation> implement
      * When an annotation(or its callers) is called,
      * this method will be invoked.
      */
-    protected abstract void onCall(@Nullable A annotation,
+    protected abstract void onCall(@NonNull A annotation,
                                    Context context,
                                    TreeElement element,
                                    ChainType chainType);
