@@ -32,27 +32,59 @@ import static java.lang.annotation.ElementType.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE})
-@Experimental(info = "This annotation is not stable yet.", policy = InfoPolicy.NONE)
+@Experimental(value = "This annotation is not stable yet.", policy = InfoPolicy.NONE)
+// This annotation definition was referenced from the definitions in kotlin-stdlib/Deprecated
+// and java.lang.Deprecated from Java 9 and above.
 public @interface Deprecated {
     /**
-     * Messages you want to alert others to with this note.
+     * The message explaining the deprecation and
+     * recommending an alternative API to use.
      *
      * @return message
      */
-    String message() default "";
+    String value() default "";
 
     /**
-     * Replace with.
+     * If present, specifies a code fragment which
+     * should be used as a replacement for the
+     * deprecated API usage.
      *
      * @return replace with.
+     * @see ReplaceWith
      */
     ReplaceWith[] replaceWith() default {};
 
+    /**
+     * Returns the version in which the annotated element became deprecated.
+     * The version string is in the same format and namespace as the value of
+     * the {@code @since} javadoc tag. The default value is the empty
+     * string.
+     *
+     * @return the version string
+     */
     String since() default "";
 
+    /**
+     * Indicates whether the annotated element is subject to removal in a
+     * future version. The default value is {@code false}.
+     *
+     * @return whether the element is subject to removal
+     */
     boolean forRemoval() default false;
 
+    /**
+     * The log level of the annotation.
+     *
+     * @return the level.
+     * @see Level
+     */
     Level level() default Level.WARN;
 
+    /**
+     * Policy for the information output of this annotation at compile time.
+     *
+     * @return the policy.
+     * @see InfoPolicy
+     */
     InfoPolicy policy() default InfoPolicy.CALLER;
 }
