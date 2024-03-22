@@ -35,9 +35,6 @@ public class WarningProcessor extends MessageAnnotationProcessor<Warning> {
 
     @Override
     protected void onCall(Warning annotation, Context context, TreeElement element, ChainType chainType) {
-        if (annotation == null) {
-            return;
-        }
         InfoPolicy annotationPolicy = annotation.policy();
         if (chainType.shouldOutput(annotationPolicy)) {
             if (annotation.value().isEmpty()) {

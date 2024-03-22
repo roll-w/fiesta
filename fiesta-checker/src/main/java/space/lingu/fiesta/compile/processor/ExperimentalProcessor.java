@@ -39,9 +39,6 @@ public class ExperimentalProcessor extends MessageAnnotationProcessor<Experiment
     @Override
     protected void onCall(Experimental annotation, Context context,
                           TreeElement element, ChainType chainType) {
-        if (annotation == null) {
-            return;
-        }
         InfoPolicy annotationPolicy = annotation.policy();
         if (annotationPolicy == InfoPolicy.NONE) {
             return;
