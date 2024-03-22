@@ -28,7 +28,7 @@ import static java.lang.annotation.ElementType.*;
  * Signifies that a public API (public class, method or field) is subject to
  * incompatible changes, or even removal, in a future release.
  * <p>
- * It is generally safe for applications to depend on beta APIs,
+ * It is generally safe for applications to depend on experimental APIs,
  * at the cost of some extra work during upgrades.
  * However, it is generally inadvisable for libraries
  * (which get included on users' CLASSPATHs, outside the library

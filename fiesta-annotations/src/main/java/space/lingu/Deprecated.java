@@ -32,7 +32,7 @@ import static java.lang.annotation.ElementType.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE})
-@Experimental(value = "This annotation is not stable yet.", policy = InfoPolicy.NONE)
+@Experimental(info = "This annotation is not stable yet.", policy = InfoPolicy.NONE)
 public @interface Deprecated {
     /**
      * Messages you want to alert others to with this note.
